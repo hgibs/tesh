@@ -2,7 +2,7 @@ pub enum TranslationTarget {
     UpperCase,
 }
 
-pub fn translate(source: String, target_type: TranslationTarget) -> String {
+#[must_use] pub fn translate(source: String, target_type: TranslationTarget) -> String {
     match target_type {
         TranslationTarget::UpperCase => translate_uppercase(source),
     }

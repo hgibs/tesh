@@ -1,11 +1,11 @@
-// use std::str::Matches;
+use unicode_segmentation::{Graphemes, UnicodeSegmentation};
 
-use unicode_segmentation::UnicodeSegmentation;
+mod segments;
 
 #[derive(Debug, Copy, Clone)]
 pub enum SelectionType {
-    Segment,
-    Grapheme,
+    MultipleGraphemes,
+    SingleGrapheme,
 }
 
 #[derive(Debug, Copy, Clone)]
@@ -22,21 +22,23 @@ pub struct TranslationTarget {
 
 // available targets
 pub const UPPERCASE: TranslationTarget = TranslationTarget {
-    operate_on: SelectionType::Grapheme,
+    operate_on: SelectionType::SingleGrapheme,
     transpose_to: TranspositionMethod::UpperCase,
 };
 pub const TITLECASE: TranslationTarget = TranslationTarget {
-    operate_on: SelectionType::Segment,
+    operate_on: SelectionType::MultipleGraphemes,
     transpose_to: TranspositionMethod::UpperCase,
 };
 
 impl TranslationTarget {
     pub fn translate(&self, source: String) -> String {
-        let segments = match &self.operate_on {
-            SelectionType::Segment => panic!(),
-            // SelectionType::Segment => segments(source.as_str()),
-            SelectionType::Grapheme => source.graphemes(true),
-        };
+        let gs = segments::GraphemeSegments::new(source.as_str(), self.operate_on);
+        // match &self.operate_on {
+        // SelectionType::MultipleGraphemes => todo!(),
+        // // SelectionType::Segment => segments(source.as_str()),
+        // SelectionType::SingleGrapheme => {
+        //     segments::GraphemeSegments::from_graphemes(source.graphemes(true))
+        // }
 
         return String::from("TO DO");
     }

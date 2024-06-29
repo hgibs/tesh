@@ -3,3 +3,19 @@
 Text shaping - simple CLI utility for reshaping text.
 Useful for piping text to from neovim/helix/etc.
 
+== dev checklist
+
+A lot of these are captured with bacon
+
+* cargo test
+* cargo nextest ??
+* cargo machete
+* cargo bench
+* cargo audit
+
+Maybe I should add cargo-make to do all checklists
+
+== Debugging / profiling
+* cargo flamegraph
+
+tokio-console ?
